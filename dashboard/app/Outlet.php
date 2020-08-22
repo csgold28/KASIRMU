@@ -12,4 +12,9 @@ class Outlet extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function category()
+    {
+        return $this->belongsToMany(Category::class)->withTimestamps();
+    }
 }
