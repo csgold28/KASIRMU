@@ -58,17 +58,24 @@
                                 <table id="basic-datatables" class="display table table-striped table-hover" >
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Kategori</th>
                                             <th>Jumlah Produk</th>
                                             <th>aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $no = 1;
+                                        @endphp
+                                        @foreach ($category as $item)
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>10</td>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td></td>
                                             <td></td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

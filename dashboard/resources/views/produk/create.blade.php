@@ -48,7 +48,7 @@
                                             <select class="form-control form-control" id="outlet">
                                                 <option value="all" selected >Semua Outlet </option>
                                                 @foreach ($outlets as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name_outlet }}</option> 
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option> 
                                                 @endforeach
                                             </select>
                                         </div>

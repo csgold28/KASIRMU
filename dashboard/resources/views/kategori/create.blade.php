@@ -46,28 +46,57 @@
                             </div>
                         </div>  
                         <div class="card">
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6">
-                                    <div class="form-group">
-                                        <label for="name">Nama Kategori</label>
-                                        <input type="text" name="name" class="form-control">
+                            <form action="{{ route('kategori.store') }}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="name">Outlet</label>
+                                            <div class="select2-input">
+                                                <select class="form-control form-control" name="outlet" id="outlet">
+                                                    <option value="all" selected>Semua Outlet</option>
+                                                    @foreach ($outlet as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('outlet'))
+                                                    <span class="text-danger">{{$errors->first('outlet')}}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="name">Nama Kategori</label>
+                                            <input type="text" name="name" class="form-control">
+                                            @if ($errors->has('name'))
+                                                <span class="text-danger">{{$errors->first('name')}}</span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <br>
-                            <div class="card-action">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="{{ route('kategori.index') }}" class="btn btn-danger btn-border">Batal</a>
-                                        <input class="btn btn-success" type="submit" value="Simpan">
-                                    </div>										
+                                <br>
+                                <div class="card-action">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a href="{{ route('kategori.index') }}" class="btn btn-danger btn-border">Batal</a>
+                                            <input class="btn btn-success" type="submit" value="Simpan">
+                                        </div>										
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $('#outlet').select2({
+			theme: "bootstrap"
+		});
+    </script>
 @endsection
 

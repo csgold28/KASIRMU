@@ -59,20 +59,24 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <select class="form-control form-control" id="outlets">
-                                        <option value="all" selected>Semua Outlet</option>
-                                        @foreach ($outlets as $outlet)
-                                            <option value="{{ $outlet->id }}">{{ $outlet->name_outlet }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="select2-input">
+                                        <select class="form-control form-control" id="outlets">
+                                            <option value="all" selected>Semua Outlet</option>
+                                            @foreach ($outlets as $outlet)
+                                                <option value="{{ $outlet->id }}">{{ $outlet->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <select class="form-control form-control" id="outlets">
-                                        <option value="all" selected>Semua Kategori</option>
-                                        @foreach ($outlets as $outlet)
-                                            <option value="{{ $outlet->id }}">{{ $outlet->name_outlet }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="select2-input">
+                                        <select class="form-control form-control" id="category">
+                                            <option value="all" selected>Semua Kategori</option>
+                                            @foreach ($category as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>	
                             </div>
                         </div>
@@ -136,6 +140,14 @@
 					} );
 				}
 			});
+
+            $('#outlets').select2({
+                theme: "bootstrap"
+            });
+
+            $('#category').select2({
+                theme: "bootstrap"
+            });
 		});
     </script>
 @endsection
