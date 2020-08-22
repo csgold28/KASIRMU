@@ -20,8 +20,13 @@ class ProdukController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $outlets = Outlet::where('user_id', $user->id)->latest()->get();
-        return view('produk.index', compact('outlets'));
+        $outlets = $user->outlet;
+        $category = [];
+        foreach ($outlets as $outlet) {
+            $array = $outlet->category;
+            $category[] = $array;
+        }
+        return view('produk.index', ['outlets' => $outlets, 'category' => $category[0]]);
     }
 
     /**
@@ -32,7 +37,7 @@ class ProdukController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $outlets = Outlet::where('user_id', $user->id)->latest()->get();
+        $outlets = $user->outlet;
         return view('produk.create', compact('outlets'));
     }
 
