@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KategoriController extends Controller
 {
@@ -17,7 +19,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return view('kategori.index');
+        $category = Category::orderBy('id', 'desc')->get();
+        return view('kategori.index', compact('category'));
     }
 
     /**
@@ -27,7 +30,9 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        return view('kategori.create');
+        $user = Auth::user();
+        $outlet = $user->outlet;
+        return view('kategori.create', compact('outlet'));
     }
 
     /**
@@ -38,7 +43,29 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'outlet'    => 'required',
+            'name'      => 'required'
+        ], [
+            'outlet.required'   => 'Pilih Outlet',
+            'name.required'     => 'Kolom Nama Kategori masih kosong'
+        ]);
+
+        if ($request->outlet == 'all') {
+            $user = Auth::user();
+            $outlets = $user->outlet;
+            $category = Category::create([
+                'name'  => $request->name
+            ]);
+            foreach ($outlets as $outlet) {
+                $outlet->category()->attach($category->id);
+            }
+        } else {
+            $category = Category::create([
+                'name'  => $request->name
+            ]);
+            $category->outlet()->attach($request->outlet);
+        }
     }
 
     /**
